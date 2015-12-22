@@ -26,9 +26,9 @@
 		<WhileTrue ux:Name="ShowMore">
 			<Button Text="2nd secret" />
 		</WhileTrue>
-		<FBSDKLoginButton HitTestMode="LocalBounds">
-			<FBSDKLoginButtonNativeView />
-		</FBSDKLoginButton>
+		<FBLoginButton HitTestMode="LocalBoundsAndChildren">
+			<FBSDKLoginButtonImpl />
+		</FBLoginButton>
 	</StackPanel>
 </App>
 

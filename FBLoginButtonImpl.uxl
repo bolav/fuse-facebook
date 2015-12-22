@@ -1,6 +1,6 @@
 <Package>
 <Extensions Backend="CPlusPlus" Condition="iOS">
-       <Type Name="FBSDKLoginButtonNativeView">
+       <Type Name="FBLoginButtonImpl">
           <Set FileExtension="mm" />
           <Require Xcode.FrameworkDirectory="@('/Users/bjorn.strand/Documents/FacebookSDK':Path)" />
           <Require Xcode.Framework="FBSDKCoreKit" />
