@@ -1,0 +1,34 @@
+<App Theme="Native">
+	<JavaScript>
+		var interApp = require('FuseJS/InterApp');
+		debug_log("JS should be initalized");
+		interApp.onReceivedUri = function (uri) {
+			debug_log("received " + uri);
+		}
+		var Observable = require('FuseJS/Observable');
+
+	</JavaScript>
+    <StackPanel>
+        <Switch />
+        <Button Text="Secret button">
+        	<Clicked>
+        		<Set ShowMore.Value="true" />
+        	</Clicked>
+        </Button>
+        <Switch />
+        <Slider />
+		<Button Text="Login to Facebook">
+			<Clicked>
+				<FacebookLoginTrigger />
+			</Clicked>
+		</Button>
+		<TextInput />
+		<WhileTrue ux:Name="ShowMore">
+			<Button Text="2nd secret" />
+		</WhileTrue>
+		<FBSDKLoginButton HitTestMode="LocalBounds">
+			<FBSDKLoginButtonNativeView />
+		</FBSDKLoginButton>
+	</StackPanel>
+</App>
+

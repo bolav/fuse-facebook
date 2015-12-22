@@ -1,0 +1,28 @@
+<Package>
+<Extensions Backend="CPlusPlus" Condition="iOS">
+       <Type Name="FacebookLogin">
+          <Set FileExtension="mm" />
+          <Require Xcode.FrameworkDirectory="@('/Users/bjorn.strand/Documents/FacebookSDK':Path)" />
+          <Require Xcode.Framework="FBSDKCoreKit" />
+          <Require Xcode.Framework="FBSDKLoginKit" />
+          <Require Xcode.Framework="FBSDKShareKit" />
+          <Require Source.Import="FBSDKCoreKit/FBSDKCoreKit.h" />
+          <Require Source.Import="FBSDKLoginKit/FBSDKLoginKit.h" />
+          <Require Source.Include="Uno-iOS/AppDelegate.h" />
+
+          <Method Signature="ViewImpl(iOS.UIKit.UIViewController)">
+               <Body>
+                   <![CDATA[
+                   FBSDKLoginButton *loginButton = [[FBSDKLoginButton alloc] init];
+                   uAppDelegate *ad = (uAppDelegate *)controller_->Handle();
+                   loginButton.center = ad.view.center;
+                   
+                   [ad.view addSubview:loginButton];
+                   ]]>
+               </Body>
+           </Method>
+
+       </Type>
+
+</Extensions>
+</Package>

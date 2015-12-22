@@ -1,0 +1,51 @@
+<Extensions Backend="CPlusPlus" Condition="iOS">
+    <Require Key="Xcode.Plist.Element">
+        <![CDATA[
+        <key>CFBundleURLTypes</key>
+        <array>
+          <dict>
+          <key>CFBundleURLSchemes</key>
+          <array>
+            <string>CFBundleURLSchemes_HERE</string>
+          </array>
+          </dict>
+        </array>
+        <key>FacebookAppID</key>
+        <string>FacebookAppID_HERE</string>
+        <key>FacebookDisplayName</key>
+        <string>FacebookDisplayName_HERE</string>
+
+        <key>NSAppTransportSecurity</key>
+        <dict>
+            <key>NSExceptionDomains</key>
+            <dict>
+                <key>facebook.com</key>
+                <dict>
+                    <key>NSIncludesSubdomains</key>
+                    <true/>
+                    <key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
+                    <false/>
+                </dict>
+                <key>fbcdn.net</key>
+                <dict>
+                    <key>NSIncludesSubdomains</key>
+                    <true/>
+                    <key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
+                    <false/>
+                </dict>
+                <key>akamaihd.net</key>
+                <dict>
+                    <key>NSIncludesSubdomains</key>
+                    <true/>
+                    <key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
+                    <false/>
+                </dict>
+            </dict>
+        </dict>
+        <key>LSApplicationQueriesSchemes</key>
+        <array>
+            <string>fbauth2</string>
+        </array>
+        ]]>
+    </Require>
+</Extensions>

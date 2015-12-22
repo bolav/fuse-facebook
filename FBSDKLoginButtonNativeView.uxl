@@ -1,0 +1,24 @@
+<Package>
+<Extensions Backend="CPlusPlus" Condition="iOS">
+       <Type Name="FBSDKLoginButtonNativeView">
+          <Set FileExtension="mm" />
+          <Require Xcode.FrameworkDirectory="@('/Users/bjorn.strand/Documents/FacebookSDK':Path)" />
+          <Require Xcode.Framework="FBSDKCoreKit" />
+          <Require Xcode.Framework="FBSDKLoginKit" />
+          <Require Xcode.Framework="FBSDKShareKit" />
+          <Require Source.Import="FBSDKCoreKit/FBSDKCoreKit.h" />
+          <Require Source.Import="FBSDKLoginKit/FBSDKLoginKit.h" />
+
+          <Method Signature="CreateImpl():iOS.UIKit.UIView">
+               <Body>
+                   <![CDATA[
+                   FBSDKLoginButton *loginButton = [[FBSDKLoginButton alloc] init];
+                   return (@{iOS.UIKit.UIView})uObjC::Lifetime::GetUnoObject(loginButton, @{iOS.UIKit.UIView:TypeOf});
+                   ]]>
+               </Body>
+           </Method>
+
+       </Type>
+
+</Extensions>
+</Package>
