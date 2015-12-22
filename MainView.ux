@@ -27,7 +27,7 @@
 			<Button Text="2nd secret" />
 		</WhileTrue>
 		<FBLoginButton HitTestMode="LocalBoundsAndChildren">
-			<FBSDKLoginButtonImpl />
+			<FBLoginButtonImpl />
 		</FBLoginButton>
 	</StackPanel>
 </App>
