@@ -9,6 +9,7 @@
 
 	</JavaScript>
     <StackPanel>
+    	<FBiOS ux:Global="_fbios"/>
         <Switch />
         <Button Text="Secret button">
         	<Clicked>
@@ -19,7 +20,6 @@
         <Slider />
 		<Button Text="Login to Facebook">
 			<Clicked>
-				<FacebookLoginTrigger />
 			</Clicked>
 		</Button>
 		<TextInput />

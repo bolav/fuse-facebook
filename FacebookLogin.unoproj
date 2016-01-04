@@ -22,7 +22,8 @@
         "FuseCore",
         "Uno.Collections",
         "Uno.Geometry",
-        "Experimental.iOS"
+        "Experimental.iOS",
+        "Fuse.Scripting"
   ],
   "Includes": [
     "*"
