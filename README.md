@@ -32,3 +32,7 @@ Add the button to your UX:
 ## License
 
 * MIT
+
+
+
+https://developers.facebook.com/docs/ios/getting-started#sdk

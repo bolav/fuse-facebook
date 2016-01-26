@@ -19,7 +19,7 @@ public extern(iOS) class FBiOS
 	}
 
 	public static void Register(string s) {
-		var uri = new NSString();
+		var uri = new NSURL();
 		uri.initWithString(s);
 		var src = new NSString();
 		src.initWithString("com.apple.mobilesafari");

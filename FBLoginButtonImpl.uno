@@ -26,7 +26,7 @@ public class FBLoginButtonImpl : Fuse.iOS.Controls.Control<FBLoginButton>
 	{
 	}
 
-	public override float2 GetMarginSize( float2 fillSize, Fuse.SizeFlags fillSet ) {
+	public override float2 GetMarginSize( LayoutParams lp ) {
 		return float2(55);
 	}
 

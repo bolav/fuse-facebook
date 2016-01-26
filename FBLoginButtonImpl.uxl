@@ -2,10 +2,10 @@
 <Extensions Backend="CPlusPlus" Condition="iOS">
        <Type Name="FBLoginButtonImpl">
           <Set FileExtension="mm" />
-          <Require Xcode.FrameworkDirectory="@('/Users/bjorn.strand/Documents/FacebookSDK':Path)" />
-          <Require Xcode.Framework="FBSDKCoreKit" />
-          <Require Xcode.Framework="FBSDKLoginKit" />
-          <Require Xcode.Framework="FBSDKShareKit" />
+          <Require Xcode.FrameworkDirectory="/Users/bjorn.strand/Documents/FacebookSDK" />
+          <Require Xcode.Framework="/Users/bjorn.strand/Documents/FacebookSDK/FBSDKCoreKit" />
+          <Require Xcode.Framework="/Users/bjorn.strand/Documents/FacebookSDK/FBSDKLoginKit" />
+          <Require Xcode.Framework="/Users/bjorn.strand/Documents/FacebookSDK/FBSDKShareKit" />
           <Require Source.Import="FBSDKCoreKit/FBSDKCoreKit.h" />
           <Require Source.Import="FBSDKLoginKit/FBSDKLoginKit.h" />
 
