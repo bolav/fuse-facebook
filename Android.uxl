@@ -1,0 +1,8 @@
+<Package>
+<!-- This file was generated based on 'C:\BuildAgent\work\2fa207703c7bb831\Source\Android.Support.V4.Meta\Project.cpp.uxl'. -->
+<!-- WARNING: Changes might be lost if you edit this file directly. -->
+<Extensions Backend="CPlusPlus" Condition="Android">
+    <CopyFile Name="libs/facebook-android-sdk-4.9.0/facebook/facebook-android-sdk-4.9.0.aar" TargetName="@(Java.LibsDirectory)/facebook-android-sdk-4.9.0.aar" />
+</Extensions>
+
+</Package>

@@ -9,7 +9,7 @@
 
 	</JavaScript>
     <StackPanel>
-    	<FBiOS ux:Global="_fbios"/>
+    	<Facebook ux:Global="_fbios"/>
         <Switch />
         <Button Text="Secret button">
         	<Clicked>

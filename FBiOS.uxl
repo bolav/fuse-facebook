@@ -1,9 +1,0 @@
-<Package>
-<Extensions Backend="CPlusPlus" Condition="iOS">
-	<Type Name="FBiOS">
-		<Set FileExtension="mm" />
-		<Require Source.Import="FBSDKCoreKit/FBSDKCoreKit.h" />
-		<Require Source.Import="FBSDKLoginKit/FBSDKLoginKit.h" />
-	</Type>
-</Extensions>
-</Package>
