@@ -1,15 +1,17 @@
-<App Theme="Native">
+<App Theme="NativeWithFallback">
+	<FacebookJS ux:Global="FJS" />
 	<JavaScript>
-		var interApp = require('FuseJS/InterApp');
-		debug_log("JS should be initalized");
-		interApp.onReceivedUri = function (uri) {
-			debug_log("received " + uri);
+		var facebook = require('FJS');
+		function login() {
+			console.log("Lets log in");
+			facebook.login();
 		}
-		var Observable = require('FuseJS/Observable');
-
+		module.exports = {
+			login: login
+		}
 	</JavaScript>
     <StackPanel>
-    	<Facebook ux:Global="_fbios"/>
+    	<Facebook ux:Global="_fb"/>
         <Switch />
         <Button Text="Secret button">
         	<Clicked>
@@ -18,10 +20,7 @@
         </Button>
         <Switch />
         <Slider />
-		<Button Text="Login to Facebook">
-			<Clicked>
-			</Clicked>
-		</Button>
+		<Button Text="Login to Facebook" Clicked="{login}" />
 		<TextInput />
 		<WhileTrue ux:Name="ShowMore">
 			<Button Text="2nd secret" />

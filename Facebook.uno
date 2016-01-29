@@ -36,13 +36,48 @@ public extern(Android) class Facebook
 {
 	static Facebook () {
 		debug_log "Running on Android";
-		init();
+	}
+
+	bool inited = false;
+	public void Login () {
+		debug_log "Try to login";
+		if (!inited) {
+			init(Android.android.app.Activity.GetAppActivity());
+		}
+		LoginImpl();
 	}
 
 	[Foreign(Language.Java)]
-	extern(Android) static void init () 
+	extern(Android) void LoginImpl ()
 	@{
-		com.facebook.FacebookSdk.sdkInitialize(getApplicationContext());
+		com.facebook.CallbackManager callbackManager = com.facebook.CallbackManager.Factory.create();
+
+		com.facebook.login.LoginManager.getInstance().registerCallback(callbackManager,
+		        new com.facebook.FacebookCallback<com.facebook.login.LoginResult>() {
+		            @Override
+		            public void onSuccess(com.facebook.login.LoginResult loginResult) {
+		                // App code
+		                android.util.Log.d("@(Activity.Name)", "your message");
+		            }
+
+		            @Override
+		            public void onCancel() {
+		                 // App code
+		                 android.util.Log.d("@(Activity.Name)", "your message");
+		            }
+
+		            @Override
+		            public void onError(com.facebook.FacebookException exception) {
+		                 // App code   
+		                 android.util.Log.d("@(Activity.Name)", "your message");
+		            }
+		});
+	@}
+
+	[Foreign(Language.Java)]
+	extern(Android) static void init (Android.android.content.Context ctx) 
+	@{
+		com.facebook.FacebookSdk.sdkInitialize(((android.content.Context)ctx));
 	@}
 }
 

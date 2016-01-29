@@ -23,7 +23,8 @@
         "Uno.Collections",
         "Uno.Geometry",
         "Experimental.iOS",
-        "Fuse.Scripting"
+        "Fuse.Scripting",
+        "Android"
   ],
   "Includes": [
     "*"
