@@ -4,6 +4,12 @@ using Fuse;
 using iOS.UIKit;
 using Uno.Compiler.ExportTargetInterop;
 
+[Require("Xcode.FrameworkDirectory", "@('libs/ios':Path)")]
+[Require("Xcode.Framework", "@('libs/ios/FBSDKCoreKit.framework':Path)")]
+[Require("Xcode.Framework", "@('libs/ios/FBSDKLoginKit.framework':Path)")]
+[Require("Xcode.Framework", "@('libs/ios/FBSDKShareKit.framework':Path)")]
+[ForeignInclude(Language.ObjC, "FBSDKCoreKit/FBSDKCoreKit.h")]
+[ForeignInclude(Language.ObjC, "FBSDKLoginKit/FBSDKLoginKit.h")]
 [TargetSpecificImplementation]
 extern (iOS)
 public class FBLoginButtonImpl : Fuse.iOS.Controls.Control<FBLoginButton>
@@ -14,8 +20,12 @@ public class FBLoginButtonImpl : Fuse.iOS.Controls.Control<FBLoginButton>
 		return v;
 	}
 
-	[TargetSpecificImplementation]
-	extern(iOS) iOS.UIKit.UIView CreateImpl();
+	[Foreign(Language.ObjC)]
+	extern(iOS) iOS.UIKit.UIView CreateImpl()
+	@{
+		FBSDKLoginButton *loginButton = [[FBSDKLoginButton alloc] init];
+		return (@{iOS.UIKit.UIView})uObjC::Lifetime::GetUnoObject(loginButton, @{iOS.UIKit.UIView:TypeOf});
+	@}
 
 	protected override void Attach()
 	{
