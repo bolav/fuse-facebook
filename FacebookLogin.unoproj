@@ -27,6 +27,8 @@
         "Android"
   ],
   "Includes": [
-    "*"
+    "*.uxl",
+    "*.uno",
+    "*.ux"
   ]
 }
