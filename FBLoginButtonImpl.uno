@@ -16,15 +16,16 @@ public class FBLoginButtonImpl : Fuse.iOS.Controls.Control<FBLoginButton>
 {
 	internal override UIView CreateInternal()
 	{
-		var v = CreateImpl();
+		var id = CreateImpl();
+		iOS.UIKit.UIView v = new iOS.UIKit.UIView(id);
 		return v;
 	}
 
 	[Foreign(Language.ObjC)]
-	extern(iOS) iOS.UIKit.UIView CreateImpl()
+	extern(iOS) ObjC.ID CreateImpl()
 	@{
 		FBSDKLoginButton *loginButton = [[FBSDKLoginButton alloc] init];
-		return (@{iOS.UIKit.UIView})uObjC::Lifetime::GetUnoObject(loginButton, @{iOS.UIKit.UIView:TypeOf});
+		return loginButton;
 	@}
 
 	protected override void Attach()
