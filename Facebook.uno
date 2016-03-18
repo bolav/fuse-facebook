@@ -5,6 +5,8 @@ using Uno.Compiler.ExportTargetInterop;
 using iOS.Foundation;
 
 [TargetSpecificImplementation]
+[ForeignInclude(Language.ObjC, "FBSDKCoreKit/FBSDKCoreKit.h")]
+[ForeignInclude(Language.ObjC, "FBSDKLoginKit/FBSDKLoginKit.h")]
 public extern(iOS) class Facebook
 {
 	static Facebook () {
@@ -18,17 +20,18 @@ public extern(iOS) class Facebook
 		// debug_log uri;
 	}
 
-	[Require("Source.Import","FBSDKCoreKit/FBSDKCoreKit.h")]
-	[Require("Source.Import","FBSDKLoginKit/FBSDKLoginKit.h")]
-
-	public static void Register(string s) {
-		var uri = new NSURL();
-		uri.initWithString(s);
-		var src = new NSString();
-		src.initWithString("com.apple.mobilesafari");
-		var app = iOS.UIKit.UIApplication._sharedApplication();
-		extern (app,uri,src)"[[FBSDKApplicationDelegate sharedInstance] application:$0->Handle() openURL:$1->Handle() sourceApplication:$2->Handle() annotation:nil];";
-	}
+	[Foreign(Language.ObjC)]
+	extern(iOS)
+	public static void Register(string s)
+	@{
+		NSURL *url = [[NSURL alloc] initWithString:s];
+		NSString *src = @"com.apple.mobilesafari";
+		[[FBSDKApplicationDelegate sharedInstance]
+			application:[UIApplication sharedApplication]
+			openURL:url
+			sourceApplication:src
+			annotation:nil];
+	@}
 }
 
 [TargetSpecificImplementation]
