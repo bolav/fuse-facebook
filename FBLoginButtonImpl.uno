@@ -8,8 +8,8 @@ using Uno.Compiler.ExportTargetInterop;
 [Require("Xcode.Framework", "@('libs/ios/FBSDKCoreKit.framework':Path)")]
 [Require("Xcode.Framework", "@('libs/ios/FBSDKLoginKit.framework':Path)")]
 [Require("Xcode.Framework", "@('libs/ios/FBSDKShareKit.framework':Path)")]
-[ForeignInclude(Language.ObjC, "FBSDKCoreKit/FBSDKCoreKit.h")]
-[ForeignInclude(Language.ObjC, "FBSDKLoginKit/FBSDKLoginKit.h")]
+[Require("Source.Include", "FBSDKCoreKit/FBSDKCoreKit.h")]
+[Require("Source.Include", "FBSDKLoginKit/FBSDKLoginKit.h")]
 [TargetSpecificImplementation]
 extern (iOS)
 public class FBLoginButtonImpl : Fuse.iOS.Controls.Control<FBLoginButton>
