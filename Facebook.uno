@@ -46,12 +46,13 @@ public extern(Android) class Facebook
 		debug_log "Try to login";
 		if (!inited) {
 			init(Android.android.app.Activity.GetAppActivity());
+			inited = true;
 		}
-		LoginImpl();
+		LoginImpl(Android.android.app.Activity.GetAppActivity());
 	}
 
 	[Foreign(Language.Java)]
-	extern(Android) void LoginImpl ()
+	extern(Android) void LoginImpl (Android.android.app.Activity ctx)
 	@{
 		com.facebook.CallbackManager callbackManager = com.facebook.CallbackManager.Factory.create();
 
@@ -75,11 +76,35 @@ public extern(Android) class Facebook
 		                 android.util.Log.d("@(Activity.Name)", "your message");
 		            }
 		});
+		com.facebook.login.LoginManager.getInstance().logInWithReadPermissions(ctx, java.util.Arrays.asList("public_profile", "user_friends"));
+
 	@}
+
+	/*
+	Add to strings.xml:
+	    <string name="facebook_app_id">app_id</string>
+	Add to AndroidManifest.xml: (and the android:minSdkVersion="15" or tools:overrideLibrary="com.facebook")
+		application:
+		        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
+		<activity
+		    android:name="com.facebook.FacebookActivity"
+		    >
+		</activity>
+
+	Add to build.gradle:
+		repositories {
+		    mavenCentral()
+		}
+
+		dependencies {
+		    compile 'com.facebook.android:facebook-android-sdk:[4,5)'
+		}
+	*/
 
 	[Foreign(Language.Java)]
 	extern(Android) static void init (Android.android.content.Context ctx) 
 	@{
+		debug_log("" + FacebookActivity.class);
 		com.facebook.FacebookSdk.sdkInitialize(((android.content.Context)ctx));
 	@}
 }
