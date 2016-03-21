@@ -80,26 +80,11 @@ public extern(Android) class Facebook
 
 	@}
 
-	/*
-	Add to strings.xml:
-	    <string name="facebook_app_id">app_id</string>
-	Add to AndroidManifest.xml: (and the android:minSdkVersion="15" or tools:overrideLibrary="com.facebook")
-		application:
-		        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
-		<activity
-		    android:name="com.facebook.FacebookActivity"
-		    >
-		</activity>
-
-	Add to build.gradle:
-		repositories {
-		    mavenCentral()
-		}
-
-		dependencies {
-		    compile 'com.facebook.android:facebook-android-sdk:[4,5)'
-		}
-	*/
+	[Require("Android.ResStrings.Declaration", "<string name=\"facebook_app_id\">app_id_here</string>")]
+	[Require("AndroidManifest.ApplicationElement", "<meta-data android:name=\"com.facebook.sdk.ApplicationId\" android:value=\"@string/facebook_app_id\"/>")]
+	[Require("AndroidManifest.ApplicationElement", "<activity android:name=\"com.facebook.FacebookActivity\"></activity>")]
+	[Require("Gradle.Dependencies.Compile","com.facebook.android:facebook-android-sdk:[4,5)")]
+	[Require("Gradle.Repository","mavenCentral()")]
 
 	[Foreign(Language.Java)]
 	extern(Android) static void init (Android.android.content.Context ctx) 

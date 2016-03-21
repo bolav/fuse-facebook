@@ -1,5 +1,8 @@
 {
   "RootNamespace":"",
+  "Android": {
+    "SDK.MinVersion" : "15"
+  },
   "Packages": [
         "Fuse.Animations",
         "Fuse.BasicTheme",
