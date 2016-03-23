@@ -34,49 +34,51 @@ public extern(iOS) class Facebook
 	@}
 }
 
+[ForeignInclude(Language.Java,
+                "android.app.Activity")]
+
 [TargetSpecificImplementation]
 public extern(Android) class Facebook
 {
 	static Facebook () {
-		debug_log "Running on Android";
 	}
 
 	bool inited = false;
 	public void Login () {
-		debug_log "Try to login";
 		if (!inited) {
-			init(Android.android.app.Activity.GetAppActivity());
+			_intentListener = Init();
+			myCallbackManager = GetCallbackManager();
 			inited = true;
 		}
-		LoginImpl(Android.android.app.Activity.GetAppActivity());
+		LoginImpl();
 	}
 
-	[Foreign(Language.Java)]
-	extern(Android) void LoginImpl (Android.android.app.Activity ctx)
-	@{
-		com.facebook.CallbackManager callbackManager = com.facebook.CallbackManager.Factory.create();
+	static Java.Object myCallbackManager;
+	static Java.Object _intentListener;
 
+	[Foreign(Language.Java)]
+	extern(Android) void LoginImpl ()
+	@{
+		Activity a = com.fuse.Activity.getRootActivity();
+		com.facebook.CallbackManager callbackManager = (com.facebook.CallbackManager)@{myCallbackManager:Get()};
 		com.facebook.login.LoginManager.getInstance().registerCallback(callbackManager,
 		        new com.facebook.FacebookCallback<com.facebook.login.LoginResult>() {
 		            @Override
 		            public void onSuccess(com.facebook.login.LoginResult loginResult) {
-		                // App code
-		                android.util.Log.d("@(Activity.Name)", "your message");
+		            	android.util.Log.d("@(Activity.Name)", "onSuccess");
 		            }
 
 		            @Override
 		            public void onCancel() {
-		                 // App code
-		                 android.util.Log.d("@(Activity.Name)", "your message");
+		            	android.util.Log.d("@(Activity.Name)", "onCancel");
 		            }
 
 		            @Override
 		            public void onError(com.facebook.FacebookException exception) {
-		                 // App code   
-		                 android.util.Log.d("@(Activity.Name)", "your message");
+		            	android.util.Log.d("@(Activity.Name)", "onError");
 		            }
 		});
-		com.facebook.login.LoginManager.getInstance().logInWithReadPermissions(ctx, java.util.Arrays.asList("public_profile", "user_friends"));
+		com.facebook.login.LoginManager.getInstance().logInWithReadPermissions(a, java.util.Arrays.asList("public_profile", "user_friends"));
 
 	@}
 
@@ -87,11 +89,35 @@ public extern(Android) class Facebook
 	[Require("Gradle.Repository","mavenCentral()")]
 
 	[Foreign(Language.Java)]
-	extern(Android) static void init (Android.android.content.Context ctx) 
+	extern(Android) static Java.Object GetCallbackManager()
 	@{
-		debug_log("" + FacebookActivity.class);
-		com.facebook.FacebookSdk.sdkInitialize(((android.content.Context)ctx));
+		return com.facebook.CallbackManager.Factory.create();
 	@}
+
+	[Foreign(Language.Java)]
+	extern(Android) static Java.Object Init ()
+	@{
+		Activity a = com.fuse.Activity.getRootActivity();
+		com.facebook.FacebookSdk.sdkInitialize(((android.content.Context)a));
+
+		com.fuse.Activity.ResultListener l = new com.fuse.Activity.ResultListener() {
+		    @Override public boolean onResult(int requestCode, int resultCode, android.content.Intent data) {
+		        return @{OnRecieved(int,int,Java.Object):Call(requestCode, resultCode, data)};
+		    }
+		};
+		com.fuse.Activity.subscribeToResults(l);
+		return l;
+	@}
+
+	[Foreign(Language.Java)]
+	static extern(Android) bool OnRecieved(int requestCode, int resultCode, Java.Object data)
+	@{
+		android.content.Intent i = (android.content.Intent)data;
+		com.facebook.CallbackManager callbackManager = (com.facebook.CallbackManager)@{myCallbackManager:Get()};
+		return callbackManager.onActivityResult(requestCode, resultCode, i);
+	@}
+
 }
 
 public extern(!iOS && !Android) class Facebook {}
+

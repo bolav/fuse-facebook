@@ -1,4 +1,4 @@
-<App Theme="NativeWithFallback">
+<App Theme="NativeWithFallback" Background="0.3,0.3,0.5,1">
 	<FacebookJS ux:Global="FJS" />
 	<JavaScript>
 		var facebook = require('FJS');

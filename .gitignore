@@ -1,2 +1,6 @@
 libs/dl/
 libs/facebook-android-sdk-4.9.0/
+.uno
+build
+libs/android/
+libs/ios/

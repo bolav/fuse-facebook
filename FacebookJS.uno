@@ -9,7 +9,6 @@ public class FacebookJS : NativeModule
 	}
 
 	object Login (Context c, object[] args) {
-		debug_log("Hello from Uno");
 		if defined(Android) {
 			MainView._fb.Login();
 		}
