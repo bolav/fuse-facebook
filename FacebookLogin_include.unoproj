@@ -31,7 +31,6 @@
   ],
   "Includes": [
     "*.uxl",
-    "*.uno",
-    "*.ux"
+    "*.uno"
   ]
 }
