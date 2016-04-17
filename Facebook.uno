@@ -82,7 +82,7 @@ public extern(Android) class Facebook
 
 	@}
 
-	[Require("Android.ResStrings.Declaration", "<string name=\"facebook_app_id\">1206756329337800</string>")]
+	[Require("Android.ResStrings.Declaration", "<string name=\"facebook_app_id\">insertidhere</string>")]
 	[Require("AndroidManifest.ApplicationElement", "<meta-data android:name=\"com.facebook.sdk.ApplicationId\" android:value=\"@string/facebook_app_id\"/>")]
 	[Require("AndroidManifest.ApplicationElement", "<activity android:name=\"com.facebook.FacebookActivity\"></activity>")]
 	[Require("Gradle.Dependencies.Compile","com.facebook.android:facebook-android-sdk:[4,5)")]
