@@ -73,10 +73,9 @@ public extern(iOS) class GraphClosure {
 	public void Execute(string path)
 	@{
 		dispatch_async(dispatch_get_main_queue(), ^{
-			[[[FBSDKGraphRequest alloc] initWithGraphPath:path parameters:\\\@{@"fields": @"picture, email, name, first_name"}]
+			[[[FBSDKGraphRequest alloc] initWithGraphPath:path parameters:\\\@{@"fields": @"picture.type(large), email, name, first_name"}]
 		         startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
 		             if (!error) {
-		                 NSLog(@"fetched user:%@  and Email : %@", result,result[@"email"]);
 		                 @{GraphClosure:Of(_this).Resolve(ObjC.Object):Call(result)};
 		         	 }
 		         	 else {
@@ -111,24 +110,27 @@ public extern(iOS) class LoginClosure {
 	extern(iOS)
 	public void Login()
 	@{
-		FBSDKLoginManager *login = [[FBSDKLoginManager alloc] init];
-		::id vc = [[[UIApplication sharedApplication] keyWindow] rootViewController];
-		[login
-		  logInWithReadPermissions: @[@"public_profile", @"email"]
-		        fromViewController:nil
-		                   handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
-		  if (error) { 
-		    NSLog(@"Process error");
-		    @{LoginClosure:Of(_this).Reject(string):Call(@"Error")};
-		  } else if (result.isCancelled) {
-		    NSLog(@"Cancelled");
-		    @{LoginClosure:Of(_this).Reject(string):Call(@"Cancelled")};
-		  } else {
-		    NSLog(@"Logged in");
-		    FBSDKAccessToken *ca = [FBSDKAccessToken currentAccessToken];
-		    @{LoginClosure:Of(_this).Resolve(string):Call([ca tokenString])};
-		  }
-		}];
+		dispatch_async(dispatch_get_main_queue(), ^{
+			FBSDKLoginManager *login = [[FBSDKLoginManager alloc] init];
+			::id vc = [[[UIApplication sharedApplication] keyWindow] rootViewController];
+			[login
+			  logInWithReadPermissions: @[@"public_profile", @"email"]
+			        fromViewController:nil
+			                   handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
+			  if (error) { 
+			    NSLog(@"Process error");
+			    @{LoginClosure:Of(_this).Reject(string):Call(@"Error")};
+			  } else if (result.isCancelled) {
+			    NSLog(@"Cancelled");
+			    @{LoginClosure:Of(_this).Reject(string):Call(@"Cancelled")};
+			  } else {
+			    NSLog(@"Logged in");
+			    FBSDKAccessToken *ca = [FBSDKAccessToken currentAccessToken];
+			    @{LoginClosure:Of(_this).Resolve(string):Call([ca tokenString])};
+			  }
+			}];
+		});
+
 	@}
 
 }
