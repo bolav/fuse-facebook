@@ -6,14 +6,14 @@
           <dict>
           <key>CFBundleURLSchemes</key>
           <array>
-            <string>CFBundleURLSchemes_HERE</string>
+            <string>@(Project.Facebook.CFBundleURLSchemes)</string>
           </array>
           </dict>
         </array>
         <key>FacebookAppID</key>
-        <string>FacebookAppID_HERE</string>
+        <string>@(Project.Facebook.AppID)</string>
         <key>FacebookDisplayName</key>
-        <string>FacebookDisplayName_HERE</string>
+        <string>@(Project.Facebook.DisplayName)</string>
 
         <key>NSAppTransportSecurity</key>
         <dict>

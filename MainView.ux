@@ -1,33 +1,43 @@
-<App Theme="NativeWithFallback" Background="0.3,0.3,0.5,1">
-	<FacebookJS ux:Global="FJS" />
-	<JavaScript>
-		var facebook = require('FJS');
-		function login() {
-			console.log("Lets log in");
-			facebook.login();
-		}
-		module.exports = {
-			login: login
-		}
-	</JavaScript>
-    <StackPanel>
-    	<Facebook ux:Global="_fb"/>
-        <Switch />
-        <Button Text="Secret button">
-        	<Clicked>
-        		<Set ShowMore.Value="true" />
-        	</Clicked>
-        </Button>
-        <Switch />
-        <Slider />
-		<Button Text="Login to Facebook" Clicked="{login}" />
-		<TextInput />
-		<WhileTrue ux:Name="ShowMore">
-			<Button Text="2nd secret" />
-		</WhileTrue>
-		<FBLoginButton HitTestMode="LocalBoundsAndChildren">
-			<FBLoginButtonImpl />
-		</FBLoginButton>
-	</StackPanel>
+<App Theme="NativeWithFallback">
+	<ClientPanel Background="#fff">
+		<FacebookJS ux:Global="FJS" />
+		<Facebook ux:Global="_fb"/>
+		<JavaScript>
+			var facebook = require('FJS');
+			var Observable = require('FuseJS/Observable');
+
+			var img = Observable();
+			var name = Observable('bolav');
+			var loggedin = Observable(false);
+
+			function login() {
+				facebook.login();
+				loggedin.value = true;
+			}
+
+			function logout() {
+				loggedin.value = false;
+			}
+
+			module.exports = {
+				login: login,
+				logout: logout,
+				img: img,
+				name: name,
+				loggedin: loggedin
+			}
+		</JavaScript>
+		    <StackPanel>
+		    	<WhileTrue Value="{loggedin}">
+		    		<Image Url="{img}" />
+		    		<Text Value="{name}" />
+		    		<Button Text="Logout" Clicked="{logout}" />
+		    	</WhileTrue>
+		    	<WhileFalse Value="{loggedin}" >
+		    		<Button Text="Login to Facebook" Clicked="{login}" />
+		    	</WhileFalse>
+			</StackPanel>
+
+	</ClientPanel>
 </App>
 

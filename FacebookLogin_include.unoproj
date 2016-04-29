@@ -27,7 +27,9 @@
         "Uno.Geometry",
         "Experimental.iOS",
         "Fuse.Scripting",
-        "Android"
+        "Android",
+        "Uno.Threading",
+        "ObjC"
   ],
   "Includes": [
     "*.uxl",
@@ -35,7 +37,8 @@
   ],
   "FusePM": {
     "Dependencies": [
-      "https://github.com/bolav/fuse-cocoapods"
+      "https://github.com/bolav/fuse-cocoapods",
+      "https://github.com/bolav/fuse-foreignhelpers"
     ]
   }
 }
