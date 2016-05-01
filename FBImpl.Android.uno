@@ -25,6 +25,14 @@ public extern(Android) class FBImpl
 		return p;
 	}
 
+	public static Future<Java.Object> MeImpl()
+	{
+		var p = new Promise<Java.Object>();
+		var closure = new GraphMeClosure(p);
+		closure.Execute(token);
+		return p;
+	}
+
 	[Foreign(Language.Java)]
 	extern(Android) static Java.Object Init ()
 	@{
@@ -62,17 +70,18 @@ public extern(Android) class FBImpl
 }
 
 [ForeignInclude(Language.Java,
+	            "com.facebook.AccessToken",
 	            "com.facebook.GraphRequest",
 	            "com.facebook.GraphResponse",
 	            "org.json.JSONObject",
 	            "android.os.Bundle")]
 public extern(Android) class GraphMeClosure {
-	Promise<string> promise;
-	public GraphMeClosure(Promise<string> p) {
+	Promise<Java.Object> promise;
+	public GraphMeClosure(Promise<Java.Object> p) {
 		promise = p;
 	}
 
-	public void Resolve(string id) {
+	public void Resolve(Java.Object id) {
 		promise.Resolve(id);
 	}
 
@@ -82,16 +91,17 @@ public extern(Android) class GraphMeClosure {
 
 	[Foreign(Language.Java)]
 	extern(Android)
-	public void Execute(string path, string token)
+	public void Execute(string token)
 	@{
 		GraphRequest request = GraphRequest.newMeRequest(
-		        token,
+		        AccessToken.getCurrentAccessToken(),
 		        new GraphRequest.GraphJSONObjectCallback() {
 		            @Override
 		            public void onCompleted(
 		                   JSONObject object,
 		                   GraphResponse response) {
-		            	Resolve(object);
+		            	@{GraphMeClosure:Of(_this).Resolve(Java.Object):Call(object)};
+		            	// Resolve(object);
 		                // Application code
 		            }
 		        });
@@ -103,6 +113,8 @@ public extern(Android) class GraphMeClosure {
 
 }
 
+[ForeignInclude(Language.Java,
+                "android.app.Activity")]
 public extern(Android) class LoginClosure {
 	Promise<string> promise;
 	static Java.Object myCallbackManager;
@@ -130,20 +142,17 @@ public extern(Android) class LoginClosure {
 		        new com.facebook.FacebookCallback<com.facebook.login.LoginResult>() {
 		            @Override
 		            public void onSuccess(com.facebook.login.LoginResult loginResult) {
-		            	android.util.Log.d("@(Activity.Name)", "onSuccess");
-		            	@{LoginClosure:Of(_this).Resolve(string):Call(loginResult.getAccessToken())};
+		            	@{LoginClosure:Of(_this).Resolve(string):Call("Success")};
 		            }
 
 		            @Override
 		            public void onCancel() {
-		            	android.util.Log.d("@(Activity.Name)", "onCancel");
-		            	@{LoginClosure:Of(_this).Reject(string):Call("Cancelled")};
+		            	@{LoginClosure:Of(_this).Reject(string):Call("Canceled")};
 		            }
 
 		            @Override
 		            public void onError(com.facebook.FacebookException exception) {
-		            	android.util.Log.d("@(Activity.Name)", "onError");
-					    @{LoginClosure:Of(_this).Reject(string):Call("Error")};
+					    @{LoginClosure:Of(_this).Reject(string):Call(String.format("Error: %s", exception.toString()))};
 		            }
 		});
 		com.facebook.login.LoginManager.getInstance().logInWithReadPermissions(a, java.util.Arrays.asList("public_profile", "email"));
