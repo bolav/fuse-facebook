@@ -28,7 +28,9 @@
     "Uno.Geometry",
     "Experimental.iOS",
     "Fuse.Scripting",
-    "Android"
+    "Android",
+    "Uno.Threading",
+    "ObjC"
   ],
   "Includes": [
     "*.uxl",
