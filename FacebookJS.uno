@@ -49,8 +49,15 @@ public class FacebookJS : NativeModule
 		    String key = iter.next();
 		    try {
 		    	Object value = json.get(key);
-		    	debug_log("value " + value.getClass().getName());
-		    	@{JSDict:Of(dict).SetKeyVal(string, string):Call(key, json.getString(key))};
+		    	if (value instanceof org.json.JSONObject) {
+		    		// debug_log("JSONObject");
+		    		Object ddict = @{JSDict:Of(dict).AddDictForKey(string):Call(key)};
+		    		@{ConvertJsonImpl(JSDict,Java.Object):Call(ddict, value)};
+		    	}
+		    	else {
+			    	// debug_log(key + ": value " + value.getClass().getName() + " : " + value.toString());
+			    	@{JSDict:Of(dict).SetKeyVal(string, string):Call(key, json.getString(key))};
+		    	}
 		    } catch (org.json.JSONException e) {
 		    	debug_log("exception: " + e);
 		    }
