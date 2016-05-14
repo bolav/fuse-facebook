@@ -8,7 +8,7 @@ using Uno.Compiler.ExportTargetInterop;
 [ForeignInclude(Language.ObjC, "FBSDKLoginKit/FBSDKLoginKit.h")]
 [TargetSpecificImplementation]
 extern (iOS)
-public class FBLoginButtonImpl : Fuse.iOS.Controls.Control<FBLoginButton>
+public class FBLoginButtonImpl : Fuse.iOS.Bindings.Controls.Control<FBLoginButton>
 {
 	internal override UIView CreateInternal()
 	{
@@ -39,4 +39,4 @@ public class FBLoginButtonImpl : Fuse.iOS.Controls.Control<FBLoginButton>
 
 }
 
-extern (!iOS) public class FBLoginButtonImpl : Fuse.iOS.Controls.Control<FBLoginButton> {}
+extern (!iOS) public class FBLoginButtonImpl : Fuse.iOS.Bindings.Controls.Control<FBLoginButton> {}

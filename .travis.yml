@@ -1,0 +1,43 @@
+env:
+  global:
+    - NDK_VERSION=r10e
+    - FUSE_VERSION=0.20.0.6446
+    - UNOPROJ=FacebookLogin_example
+    - NAME=FacebookLoginExample
+language: 
+  - fuse
+  - objective-c
+  - android
+  - node_js
+os:
+  - osx
+sudo: required
+
+cache:
+  directories:
+#    - /Applications/Fuse.app
+#    - /usr/local/share/uno
+#    - $HOME/.fuse
+    - $HOME/Library/Android
+#    - $HOME/fuse
+
+
+before_install:
+  - ./.travis/install-ndk.sh
+  - ./.travis/install-fuse.sh
+  - ./.travis/install-fuseandroid.sh
+  - ./.travis/install-fusepm.sh
+
+before_script:
+    - fusepm install --unoproj ${UNOPROJ}.unoproj
+# http://stackoverflow.com/questions/27671854/travis-ci-fails-to-build-with-a-code-signing-error
+#     - ./.travis/add-key.sh
+
+script:
+  - ./.travis/test_uno.sh
+  - ./.travis/test_ios.sh
+  - ./.travis/test_android.sh
+
+# before_cache:
+#   - mkdir $HOME/fuse
+#   - mv "/Users/travis/Library/Application Support/Fusetools" $HOME/fuse/appsupport

@@ -1,4 +1,4 @@
-<App Theme="NativeWithFallback">
+<App>
 	<ClientPanel Background="#fff">
 		<FacebookJS ux:Global="FJS" />
 		<Facebook ux:Global="_fb"/>
