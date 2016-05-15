@@ -1,0 +1,7 @@
+<Control ux:Class="FBLoginButton">
+    <FBLoginButtonImpl ux:Generate="Template" ux:Binding="iOSTemplate" />
+
+    <Text ux:Generate="Template" ux:Binding="GraphicsTemplate">
+        Facebook button only available on iOS.
+    </Text>
+</Control>
