@@ -36,6 +36,7 @@
 		    	<WhileFalse Value="{loggedin}" >
 		    		<Button Text="Login to Facebook" Clicked="{login}" />
 		    	</WhileFalse>
+		    	<FBLoginButton />
 			</StackPanel>
 
 	</ClientPanel>
