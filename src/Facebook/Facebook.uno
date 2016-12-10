@@ -5,6 +5,9 @@ using Uno.Compiler.ExportTargetInterop;
 using iOS.Foundation;
 
 [TargetSpecificImplementation]
+[Require("Cocoapods.Podfile.Target", "pod 'FBSDKCoreKit'")]
+[Require("Cocoapods.Podfile.Target", "pod 'FBSDKShareKit'")]
+[Require("Cocoapods.Podfile.Target", "pod 'FBSDKLoginKit'")]
 [ForeignInclude(Language.ObjC, "FBSDKCoreKit/FBSDKCoreKit.h")]
 [ForeignInclude(Language.ObjC, "FBSDKLoginKit/FBSDKLoginKit.h")]
 public extern(iOS) class Facebook

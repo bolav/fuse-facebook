@@ -1,7 +1,0 @@
-<Package>
-<Extensions Backend="CPlusPlus" Condition="OldAndroid">
-    <CopyFile Name="libs/android/classes.jar" TargetName="@(Java.LibsDirectory)/facebook.jar" />
-    <CopyDirectory Name="libs/android/res" TargetName="@(Java.ProjectDirectory)/main" />
-</Extensions>
-
-</Package>
