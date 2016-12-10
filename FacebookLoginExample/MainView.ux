@@ -1,4 +1,4 @@
-<App Theme="NativeWithFallback">
+<App>
 	<ClientPanel Background="#fff">
 		<FacebookJS ux:Global="FJS" />
 		<Facebook ux:Global="_fb"/>
@@ -34,6 +34,9 @@
 		    		<Button Text="Logout" Clicked="{logout}" />
 		    	</WhileTrue>
 		    	<WhileFalse Value="{loggedin}" >
+		    		<NativeViewHost>
+			    		<FBLoginButton />
+			    	</NativeViewHost>
 		    		<Button Text="Login to Facebook" Clicked="{login}" />
 		    	</WhileFalse>
 			</StackPanel>

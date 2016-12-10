@@ -2,7 +2,6 @@ using Uno;
 using Uno.Collections;
 using Fuse;
 using Uno.Compiler.ExportTargetInterop;
-using iOS.Foundation;
 
 [TargetSpecificImplementation]
 [Require("Cocoapods.Podfile.Target", "pod 'FBSDKCoreKit'")]

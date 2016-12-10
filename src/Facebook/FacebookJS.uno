@@ -2,7 +2,6 @@ using Uno;
 using Uno.Threading;
 using Fuse;
 using Fuse.Scripting;
-using Bolav.ForeignHelpers;
 using Uno.Compiler.ExportTargetInterop;
 
 public class FacebookJS : NativeModule
@@ -10,9 +9,9 @@ public class FacebookJS : NativeModule
 	public FacebookJS() {
 		AddMember(new NativePromise<string, string>("login", Login, null));
 		if defined(iOS)
-			AddMember(new NativePromise<ObjC.Object, Fuse.Scripting.Object>("me", Me, ConvertDict));
+			AddMember(new NativePromise<ObjC.Object, string>("me", Me, ConvertDict));
 		if defined(Android)
-			AddMember(new NativePromise<Java.Object, Fuse.Scripting.Object>("me", Me, ConvertJavaJson));
+			AddMember(new NativePromise<Java.Object, string>("me", Me, ConvertJavaJson));
 	}
 
 	Future<string> Login (object[] args) {
@@ -27,41 +26,38 @@ public class FacebookJS : NativeModule
 		return FBImpl.MeImpl();
 	}
 
-	extern(iOS) static Fuse.Scripting.Object ConvertDict(Context context, ObjC.Object result)
+	extern(iOS) static string ConvertDict(Context context, ObjC.Object result)
 	{
-		var dict = new JSDict(context);
-		dict.FromiOS(result);
-		return dict.GetScriptingObject();
+		return ConvertDictToJson(result);
 	}
 
-	extern(Android) static Fuse.Scripting.Object ConvertJavaJson(Context context, Java.Object result)
+	extern(Android) static string ConvertJavaJson(Context context, Java.Object result)
 	{
-		var dict = new JSDict(context);
-		ConvertJsonImpl(dict, result);
-		return dict.GetScriptingObject();
+		return ConvertJsonImpl(result);
 	}
+
+	[Foreign(Language.ObjC)]
+	extern(iOS) static string ConvertDictToJson (ObjC.Object dict)
+	@{
+		NSError *error;
+		NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dict
+		                                                   options:NSJSONWritingPrettyPrinted // Pass 0 if you don't care about the readability of the generated string
+		                                                     error:&error];
+
+		if (! jsonData) {
+		    NSLog(@"Got an error: %@", error);
+		    return nil;
+		} else {
+		    NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+		    return jsonString;
+		}
+	@}
 
 	[Foreign(Language.Java)]
-	extern(Android) static void ConvertJsonImpl (JSDict dict, Java.Object jsonobj)
+	extern(Android) static string ConvertJsonImpl (Java.Object jsonobj)
 	@{
 		org.json.JSONObject json = (org.json.JSONObject)jsonobj;
-		for(java.util.Iterator<String> iter = json.keys();iter.hasNext();) {
-		    String key = iter.next();
-		    try {
-		    	Object value = json.get(key);
-		    	if (value instanceof org.json.JSONObject) {
-		    		// debug_log("JSONObject");
-		    		Object ddict = @{JSDict:Of(dict).AddDictForKey(string):Call(key)};
-		    		@{ConvertJsonImpl(JSDict,Java.Object):Call(ddict, value)};
-		    	}
-		    	else {
-			    	// debug_log(key + ": value " + value.getClass().getName() + " : " + value.toString());
-			    	@{JSDict:Of(dict).SetKeyVal(string, string):Call(key, json.getString(key))};
-		    	}
-		    } catch (org.json.JSONException e) {
-		    	debug_log("exception: " + e);
-		    }
-		}
+		return json.toString();
 	@}
 
 
