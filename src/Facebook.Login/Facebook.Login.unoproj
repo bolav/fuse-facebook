@@ -1,0 +1,12 @@
+{
+  "Packages": [
+    "Fuse",
+    "FuseJS"
+  ],
+  "Projects": [
+      "../Facebook/Facebook.unoproj"
+  ],
+  "Includes": [
+    "*"
+  ]
+}

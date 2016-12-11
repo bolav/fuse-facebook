@@ -3,18 +3,21 @@ using Uno.Collections;
 using Fuse;
 using Uno.Compiler.ExportTargetInterop;
 
+namespace Facebook
+{
 [TargetSpecificImplementation]
-[Require("Cocoapods.Podfile.Target", "pod 'FBSDKCoreKit'")]
-[Require("Cocoapods.Podfile.Target", "pod 'FBSDKShareKit'")]
 [Require("Cocoapods.Podfile.Target", "pod 'FBSDKLoginKit'")]
 [ForeignInclude(Language.ObjC, "FBSDKCoreKit/FBSDKCoreKit.h")]
 [ForeignInclude(Language.ObjC, "FBSDKLoginKit/FBSDKLoginKit.h")]
-public extern(iOS) class Facebook
+public extern(iOS) class Login
 {
-	static Facebook () {
+	static Login () {
+		global::Facebook.Core.Init();
 		debug_log "Registering callback";
 		Uno.Platform2.Application.ReceivedURI += OnReceivedUri;
 	}
+
+	public static void Init () { }
 
 	static void OnReceivedUri(object sender, string uri) {
 		if (uri.Substring(0,2) == "fb")
@@ -40,13 +43,16 @@ public extern(iOS) class Facebook
                 "android.app.Activity")]
 
 [TargetSpecificImplementation]
-public extern(Android) class Facebook
+public extern(Android) class Login
 {
-	static Facebook () {
+	static Login () {
+		Facebook.Core.Init();
 	}
 
+	public static void Init () { }
+
 	bool inited = false;
-	public void Login () {
+	public void DoLogin () {
 		if (!inited) {
 			_intentListener = Init();
 			myCallbackManager = GetCallbackManager();
@@ -84,12 +90,6 @@ public extern(Android) class Facebook
 
 	@}
 
-	[Require("Android.ResStrings.Declaration", "<string name=\"facebook_app_id\">insertidhere</string>")]
-	[Require("AndroidManifest.ApplicationElement", "<meta-data android:name=\"com.facebook.sdk.ApplicationId\" android:value=\"@string/facebook_app_id\"/>")]
-	[Require("AndroidManifest.ApplicationElement", "<activity android:name=\"com.facebook.FacebookActivity\"></activity>")]
-	[Require("Gradle.Dependencies.Compile","com.facebook.android:facebook-android-sdk:[4,5)")]
-	[Require("Gradle.Repository","mavenCentral()")]
-
 	[Foreign(Language.Java)]
 	extern(Android) static Java.Object GetCallbackManager()
 	@{
@@ -121,5 +121,8 @@ public extern(Android) class Facebook
 
 }
 
-public extern(!iOS && !Android) class Facebook {}
+	public extern(!iOS && !Android) class Login {
+		public static void Init () { }
+	}
 
+}

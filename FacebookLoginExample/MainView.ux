@@ -1,9 +1,7 @@
 <App>
 	<ClientPanel Background="#fff">
-		<FacebookJS ux:Global="FJS" />
-		<Facebook ux:Global="_fb"/>
 		<JavaScript>
-			var facebook = require('FJS');
+			var facebook = require('Facebook/Login');
 			var Observable = require('FuseJS/Observable');
 
 			var img = Observable();

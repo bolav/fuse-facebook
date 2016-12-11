@@ -21,9 +21,6 @@ public class FBLoginButtonImpl : LeafView
 	@}
 }
 
-[Require("Gradle.Dependency.Compile", "com.facebook.android:facebook-android-sdk:4.+")]
-[Require("Android.ResStrings.Declaration", "<string name=\"facebook_app_id\">@(Project.Facebook.AppID)</string>")]
-[Require("AndroidManifest.ApplicationElement", "<meta-data android:name=\"com.facebook.sdk.ApplicationId\" android:value=\"@string/facebook_app_id\"/>")]
 [ForeignInclude(Language.Java,
                 "com.facebook.AccessToken",
                 "com.facebook.CallbackManager",

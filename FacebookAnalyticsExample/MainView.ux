@@ -1,0 +1,6 @@
+<App>
+	<Facebook.Analytics />
+	<ClientPanel>
+		<Text Value="Should have logged" />
+	</ClientPanel>
+</App>

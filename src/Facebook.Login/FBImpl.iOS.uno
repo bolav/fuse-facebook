@@ -10,6 +10,7 @@ public extern(iOS) class FBImpl
 {
 	static FBImpl () {
 		debug_log "Registering callback";
+		// TODO: Rewrite this to get the all parameters
 		Uno.Platform2.Application.ReceivedURI += OnReceivedUri;
 	}
 

@@ -1,12 +1,26 @@
 using Uno;
+using Uno.UX;
 using Uno.Threading;
 using Fuse;
 using Fuse.Scripting;
 using Uno.Compiler.ExportTargetInterop;
 
-public class FacebookJS : NativeModule
+namespace Facebook {
+
+[UXGlobalModule]
+public class JS : NativeModule
 {
-	public FacebookJS() {
+	static readonly JS _instance;
+
+	// TODO: Event for logged in
+	// TODO: Rewrite to newest
+	public JS () {
+		if(_instance != null) return;
+
+		Resource.SetGlobalKey(_instance = this, "Facebook/Login");
+		Facebook.Core.Init();
+		Facebook.Login.Init();
+
 		AddMember(new NativePromise<string, string>("login", Login, null));
 		if defined(iOS)
 			AddMember(new NativePromise<ObjC.Object, string>("me", Me, ConvertDict));
@@ -63,4 +77,5 @@ public class FacebookJS : NativeModule
 
 
 
+}
 }

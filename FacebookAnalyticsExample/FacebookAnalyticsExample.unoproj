@@ -1,0 +1,17 @@
+{
+  "RootNamespace":"",
+  "Packages": [
+  	"Fuse",
+  	"FuseJS"
+  ],
+  "Facebook": {
+    "AppID": "APPID_HERE",
+    "CFBundleURLSchemes": "URL_SCHEME_HERE"
+  },
+  "Projects": [
+      "../src/Facebook.Analytics/Facebook.Analytics.unoproj"
+  ],  
+  "Includes": [
+    "*"
+  ]
+}
