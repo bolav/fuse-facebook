@@ -8,13 +8,13 @@ using Uno.Compiler.ExportTargetInterop;
 namespace Facebook {
 
 [UXGlobalModule]
-public class JS : NativeModule
+public class LoginJS : NativeModule
 {
-	static readonly JS _instance;
+	static readonly LoginJS _instance;
 
 	// TODO: Event for logged in
 	// TODO: Rewrite to newest
-	public JS () {
+	public LoginJS () {
 		if(_instance != null) return;
 
 		Resource.SetGlobalKey(_instance = this, "Facebook/Login");

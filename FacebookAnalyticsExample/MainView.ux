@@ -1,6 +1,24 @@
 <App>
 	<Facebook.Analytics />
+	<JavaScript>
+		var Observable = require('FuseJS/Observable')
+		var analytics = require('Facebook/Analytics');
+		var eventname = Observable('');
+		function logit () {
+			console.log("logit " + eventname.value);
+			analytics.logEvent(eventname.value, {'one':'one','two':'two'});
+			analytics.logEvent(eventname.value, 130);
+		}
+		module.exports = {
+			eventname: eventname,
+			logit: logit
+		}
+	</JavaScript>
 	<ClientPanel>
-		<Text Value="Should have logged" />
+		<StackPanel>
+			<Text Value="Should have logged" />
+			<Basic.TextInput Value="{eventname}" PlaceholderText="EventName" />
+			<Basic.Button Text="LogIt" Clicked="{logit}" />
+		</StackPanel>
 	</ClientPanel>
 </App>
