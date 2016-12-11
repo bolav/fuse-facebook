@@ -23,7 +23,7 @@ namespace Facebook
 	[Require("Android.ResStrings.Declaration", "<string name=\"facebook_app_id\">@(Project.Facebook.AppID)</string>")]
 	[Require("AndroidManifest.ApplicationElement", "<meta-data android:name=\"com.facebook.sdk.ApplicationId\" android:value=\"@string/facebook_app_id\"/>")]
 	[Require("AndroidManifest.ApplicationElement", "<activity android:name=\"com.facebook.FacebookActivity\"></activity>")]
-	[Require("Gradle.Dependencies.Compile","com.facebook.android:facebook-android-sdk:[4,5)")]
+	[Require("Gradle.Dependency.Compile","com.facebook.android:facebook-android-sdk:[4,5)")]
 	[Require("Gradle.Repository","mavenCentral()")]
 	extern(Android)
     public class Core
