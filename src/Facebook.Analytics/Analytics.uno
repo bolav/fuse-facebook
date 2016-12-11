@@ -24,12 +24,20 @@ namespace Facebook
 			debug_log "Registering Analytics callback";
 			Facebook.Core.Init();
 			Fuse.Platform.Lifecycle.EnteringForeground += OnEnteringForeground;
+			Fuse.Platform.Lifecycle.ExitedInteractive += OnExitedInteractive;
+			if defined(Android)
+				InitImpl();
 		}
 
 		static void OnEnteringForeground(Fuse.Platform.ApplicationState s) {
 			debug_log "EnteringForeground";
 			if defined(mobile)
 				ActivateImpl();
+		}
+
+		static void OnExitedInteractive(Fuse.Platform.ApplicationState s) {
+			if defined(Android)
+				DeactiveImpl();
 		}
 
 		[Foreign(Language.ObjC)]
@@ -39,13 +47,28 @@ namespace Facebook
 			[FBSDKAppEvents activateApp];
 		@}
 
+
+		[Foreign(Language.Java)]
+		extern(Android)
+		static void InitImpl ()
+		@{
+			AppEventsLogger logger = AppEventsLogger.newLogger(Activity.getRootActivity());
+			@{_logger:Set(logger)};
+		@}
+
 		[Foreign(Language.Java)]
 		extern(Android)
 		static void ActivateImpl ()
 		@{
 			AppEventsLogger.activateApp(Activity.getRootActivity());
-			AppEventsLogger logger = AppEventsLogger.newLogger(Activity.getRootActivity());
-			@{_logger:Set(logger)};
+		@}
+
+
+		[Foreign(Language.Java)]
+		extern(Android)
+		static void DeactiveImpl ()
+		@{
+			AppEventsLogger.deactivateApp(Activity.getRootActivity());
 		@}
 
 		[Foreign(Language.ObjC)]
