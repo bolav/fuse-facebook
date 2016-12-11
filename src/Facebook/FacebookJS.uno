@@ -39,6 +39,7 @@ public class FacebookJS : NativeModule
 	[Foreign(Language.ObjC)]
 	extern(iOS) static string ConvertDictToJson (ObjC.Object dict)
 	@{
+		// http://stackoverflow.com/questions/6368867/generate-json-string-from-nsdictionary-in-ios
 		NSError *error;
 		NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dict
 		                                                   options:NSJSONWritingPrettyPrinted // Pass 0 if you don't care about the readability of the generated string

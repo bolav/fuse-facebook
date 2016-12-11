@@ -19,12 +19,19 @@
 				loggedin.value = false;
 			}
 
+			function me() {
+				facebook.me().then(function (js) {
+					console.log(js);
+				});
+			}
+
 			module.exports = {
 				login: login,
 				logout: logout,
 				img: img,
 				name: name,
-				loggedin: loggedin
+				loggedin: loggedin,
+				me: me
 			}
 		</JavaScript>
 		    <StackPanel>
@@ -39,6 +46,7 @@
 			    	</NativeViewHost>
 		    		<Button Text="Login to Facebook" Clicked="{login}" />
 		    	</WhileFalse>
+		    	<Button Text="CallMe" Clicked="{me}" />
 			</StackPanel>
 
 	</ClientPanel>

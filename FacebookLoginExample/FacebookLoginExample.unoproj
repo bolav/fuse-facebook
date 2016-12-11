@@ -5,6 +5,10 @@
     "FuseJS",
     "Fuse.BasicTheme"
   ],
+  "Facebook": {
+    "AppID": "APPID_HERE",
+    "CFBundleURLSchemes": "URL_SCHEME_HERE"
+  },
   "Projects": [
       "../src/Facebook/Facebook.unoproj"
   ],
