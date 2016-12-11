@@ -10,7 +10,7 @@
     "CFBundleURLSchemes": "URL_SCHEME_HERE"
   },
   "Projects": [
-      "../src/Facebook/Facebook.unoproj"
+      "../src/Facebook.Login/Facebook.Login.unoproj"
   ],
   "Includes": [
     "*",
