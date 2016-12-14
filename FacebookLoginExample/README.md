@@ -10,10 +10,13 @@ This is only a proof of concept.
 ## Usage
 
 Fix your unoproj:
+
+```
     "Facebook": {
       "AppID": "APPID_HERE",
       "CFBundleURLSchemes": "URL_SCHEME_HERE"
     },
+```
 
 Add the button to your UX:
 
