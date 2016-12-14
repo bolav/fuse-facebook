@@ -1,38 +1,9 @@
 # Fuse Facebook Login
 
-Example to log in with [Facebook](https://www.facebook.com/) with [Fuse](http://www.fusetools.com/).
+[Facebook](https://www.facebook.com/) Native SDK support for [Fuse](http://www.fusetools.com/).
 
-This is only a proof of concept.
+Work in progress.
 
-![Screenshot](https://raw.githubusercontent.com/bolav/fuse-facebook-login/master/LogIn.png)
-![Screenshot](https://raw.githubusercontent.com/bolav/fuse-facebook-login/master/LogOut.png)
+- [Login](https://github.com/bolav/fuse-facebook/tree/feature-analytics/FacebookLoginExample)
+- [Anayltics](https://github.com/bolav/fuse-facebook/tree/feature-analytics/FacebookAnalyticsExample)
 
-## Usage
-
-Register callback:
-
-```
-<FBiOS ux:Global="_fbios"/>
-```
-
-Add the button to your UX:
-
-```
-<FBLoginButton HitTestMode="LocalBoundsAndChildren">
-	<FBLoginButtonImpl />
-</FBLoginButton>
-```
-
-## Issues
-
-* Only iOS support for now. (Android on the list).
-* Only FB-button support. (Custom button coming).
-* Will ask for login each time.
-
-## License
-
-* MIT
-
-
-
-https://developers.facebook.com/docs/ios/getting-started#sdk
